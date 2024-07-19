@@ -55,7 +55,7 @@ class StocksViewModel: ObservableObject {
     }
     
     // Function to calculate portfolio value
-    private func calculatePortfolioValue() {
+     func calculatePortfolioValue() {
         portfolioValue = ownedStocks.reduce(0.0) { $0 + Double($1.quantity ?? 0) * Double($1.current_price_cents) / 100.0 }
     }
 }
