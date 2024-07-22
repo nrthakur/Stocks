@@ -5,62 +5,82 @@
 //  Created by Nikunj Thakur on 2024-07-10.
 //
 
+import WebKit
 import SwiftUI
 import SafariServices
 
+// Custom wrapper to make URL Identifiable
+struct IdentifiableURL: Identifiable {
+    let id = UUID()
+    let url: URL
+}
+
 struct NewsView: View {
+    @State private var selectedURL: IdentifiableURL?
+    
     var body: some View {
         List {
             // Navigation link to Bloomberg
-            NavigationLink(destination: SafariView(url: URL(string: "https://www.bloomberg.com/canada")!)) {
-                Text("Bloomberg")
+            Button("Bloomberg") {
+                selectedURL = IdentifiableURL(url: URL(string: "https://www.bloomberg.com/canada")!)
             }
+            .buttonStyle(PlainButtonStyle())
 
             // Navigation link to Yahoo Finance
-            NavigationLink(destination: SafariView(url: URL(string: "https://ca.finance.yahoo.com")!)) {
-                Text("Yahoo Finance")
+            Button("Yahoo Finance") {
+                selectedURL = IdentifiableURL(url: URL(string: "https://ca.finance.yahoo.com")!)
             }
+            .buttonStyle(PlainButtonStyle())
 
             // Navigation link to CNBC
-            NavigationLink(destination: SafariView(url: URL(string: "https://www.cnbc.com")!)) {
-                Text("CNBC")
+            Button("CNBC") {
+                selectedURL = IdentifiableURL(url: URL(string: "https://www.cnbc.com")!)
             }
-            
-            // Navigation link to CNBC
-            NavigationLink(destination: SafariView(url: URL(string: "https://www.forbes.com")!)) {
-                Text("Forbes")
+            .buttonStyle(PlainButtonStyle())
+
+            // Navigation link to Forbes
+            Button("Forbes") {
+                selectedURL = IdentifiableURL(url: URL(string: "https://www.forbes.com")!)
             }
-            
-            // Navigation link to CNBC
-            NavigationLink(destination: SafariView(url: URL(string: "https://www.bbc.co.uk/programmes/p002vsxs")!)) {
-                Text("BBC")
+            .buttonStyle(PlainButtonStyle())
+
+            // Navigation link to BBC
+            Button("BBC") {
+                selectedURL = IdentifiableURL(url: URL(string: "https://www.bbc.co.uk/programmes/p002vsxs")!)
             }
-            
-            // Navigation link to CNBC
-            NavigationLink(destination: SafariView(url: URL(string: "https://www.marketwatch.com")!)) {
-                Text("MarketWatch")
+            .buttonStyle(PlainButtonStyle())
+
+            // Navigation link to MarketWatch
+            Button("MarketWatch") {
+                selectedURL = IdentifiableURL(url: URL(string: "https://www.marketwatch.com")!)
             }
-            
-            // Navigation link to CNBC
-            NavigationLink(destination: SafariView(url: URL(string: "https://www.cbc.ca/news/business")!)) {
-                Text("CBC")
+            .buttonStyle(PlainButtonStyle())
+
+            // Navigation link to CBC
+            Button("CBC") {
+                selectedURL = IdentifiableURL(url: URL(string: "https://www.cbc.ca/news/business")!)
             }
-            
-            // Navigation link to CNBC
-            NavigationLink(destination: SafariView(url: URL(string: "https://www.businessinsider.com")!)) {
-                Text("Business Insider")
+            .buttonStyle(PlainButtonStyle())
+
+            // Navigation link to Business Insider
+            Button("Business Insider") {
+                selectedURL = IdentifiableURL(url: URL(string: "https://www.businessinsider.com")!)
             }
-            
-            // Navigation link to CNBC
-            NavigationLink(destination: SafariView(url: URL(string: "https://www.thescore.com")!)) {
-                Text("theScore ;)")
+            .buttonStyle(PlainButtonStyle())
+
+            // Navigation link to theScore
+            Button("theScore") {
+                selectedURL = IdentifiableURL(url: URL(string: "https://www.thescore.com")!)
             }
+            .buttonStyle(PlainButtonStyle())
         }
         .navigationTitle("News") // Title for the navigation bar
+        .fullScreenCover(item: $selectedURL) { identifiableURL in
+            SafariView(url: identifiableURL.url)
+        }
     }
 }
 
 #Preview {
     NewsView()
 }
-
